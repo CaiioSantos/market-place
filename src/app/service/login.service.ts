@@ -18,8 +18,8 @@ export class LoginService {
       next:(response) => {
         var respJson = JSON.stringify(response)
         var jwt = JSON.parse(respJson)
-        console.info(jwt.Authorization)
         localStorage.setItem('Authorization', jwt.Authorization)
+        localStorage.setItem('username', jwt.username)
         alert('Login realizado')
       },
       error :(err) => {
@@ -37,5 +37,11 @@ export class LoginService {
         alert('Erro ao recuperar a senha'+ JSON.stringify(error))
       }
     })
+  }
+
+  usuarioLogado() {
+    var authorization = ''+ localStorage.getItem('Authorization');
+
+    return authorization != '' && authorization !== null && authorization !== 'null';
   }
 }

@@ -15,13 +15,14 @@ export class InterceptorProjetoInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
 
-    var authorization = ''+ localStorage.getItem('Authorization')
-    if(authorization != ''){
-      console.info(authorization)
+    var autorization = ''+ localStorage.getItem('Authorization');
+
+    if(autorization !== '' && autorization !== null && autorization !== 'null'){
+      console.info(autorization)
       const autRequest = request.clone({
-        headers: request.headers.set('Authorization', authorization)
+        headers: request.headers.set('Authorization', autorization)
       })
-      return next.handle(request);
+      return next.handle(autRequest);
 
     }else {
       return next.handle(request);

@@ -3,12 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { guardiaoGuard } from './guard/guardiao.guard';
 
 const routes: Routes = [
 
   {path: 'login', component: LoginComponent},
   {path: '', component: AppComponent},
-  {path: 'home', component: HomeComponent}
+  {path: 'home', component: HomeComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}}
 ];
 
 @NgModule({
