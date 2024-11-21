@@ -8,13 +8,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InterceptorProjetoInterceptor } from './interceptor/interceptor-projeto.interceptor';
 import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { CategoriaProdutoComponent } from './categoria-produto/categoria-produto.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent,
+    CategoriaProdutoComponent
   ],
   imports: [
     BrowserModule,

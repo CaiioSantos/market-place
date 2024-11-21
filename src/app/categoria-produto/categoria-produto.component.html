@@ -1,0 +1,21 @@
+<p style="text-align: center; font-weight: bold;font-size: 15px;">Cadastro de categoria de Produto</p>
+<div>
+
+  <form class="row g-3" [formGroup]="catForm">
+    <div class="col-2">
+      <label for="id" class="form-label">ID</label>
+      <input type="text" class="form-control" id="id" name="id" readonly placeholder="ID" formControlName="id">
+    </div>
+    <div class="col-10">
+      <label for="descricao" class="form-label">Nome da Categoria</label>
+      <input type="text" class="form-control" id="descricao" name="descricao" required placeholder="Nome da Categoria" formControlName="descricao">
+      <div *ngIf="catForm.get('descricao')?.errors" style="font-size:8px;color: brown;">
+        Nome obrigatorio!
+      </div>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" [disabled]="!catForm.valid" (click)="cadProdutoCategoria()">Cadastrar</button>
+    </div>
+  </form>
+
+</div>

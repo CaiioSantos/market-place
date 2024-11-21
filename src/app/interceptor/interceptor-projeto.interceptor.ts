@@ -18,7 +18,6 @@ export class InterceptorProjetoInterceptor implements HttpInterceptor {
     var autorization = ''+ localStorage.getItem('Authorization');
 
     if(autorization !== '' && autorization !== null && autorization !== 'null'){
-      console.info(autorization)
       const autRequest = request.clone({
         headers: request.headers.set('Authorization', autorization)
       })

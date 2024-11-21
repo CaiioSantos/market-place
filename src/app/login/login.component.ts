@@ -31,7 +31,6 @@ export class LoginComponent {
     const usuario = this.loginObjeto();
 
     this.service.logar(usuario);
-    this.route.navigate(['home'])
   }
 
   recuperarSenha(){

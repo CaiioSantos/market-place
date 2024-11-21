@@ -25,4 +25,8 @@ export class AppComponent implements OnInit {
     }
   }
 
+  usuarioLogado(){
+    return this.service.usuarioLogado();
+  }
+
 }
