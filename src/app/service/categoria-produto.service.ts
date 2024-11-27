@@ -17,11 +17,13 @@ export class CategoriaProdutoService {
   }
 
   cadastrarPrduto(categoriaProduto: CategoriaProduto) {
+    console.info(categoriaProduto)
     return this.http.post<String>(this.url + 'salvarCategoria', categoriaProduto).subscribe({
       next: (response) => {
         alert('Cadastrado com Sucesso')
       },
       error: (error) => {
+        console.info(error.error)
         alert('Não foi possivel cadastrar a categoria'+ error )
       }
     })

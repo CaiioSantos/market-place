@@ -1,6 +1,10 @@
-export interface CategoriaProduto {
+import { PessoaJuridica } from "./pessoa-juridica";
+
+export class CategoriaProduto {
+
+  constructor(){}
 
   id?: Number
-  descricao: String;
-  empresa?: string;
+  descricao?: String;
+  empresa?: PessoaJuridica;
 }
