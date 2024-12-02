@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CategoriaProduto } from '../model/categoria-produto';
 import { PessoaJuridica } from '../model/pessoa-juridica';
+import { LoginService } from '../service/login.service';
 
 @Component({
   selector: 'app-categoria-produto',
@@ -12,29 +13,44 @@ import { PessoaJuridica } from '../model/pessoa-juridica';
 })
 export class CategoriaProdutoComponent implements OnInit {
 
-  constructor(private form: FormBuilder, private service: CategoriaProdutoService, private route: Router){
+  lista = new Array<CategoriaProduto>();
+
+  constructor(private form: FormBuilder, private service: CategoriaProdutoService,
+     private route: Router, private loginService: LoginService){
   }
 
 
   catForm = this.form.group({
     id:[],
-    descricao:[null,Validators.required] })
+    descricao:[null,Validators.required],
+  })
 
   ngOnInit(): void {
+    this.service.listarCategoria().subscribe({
+      next: (res) =>{
+        this.lista = res
+        console.log(this.lista)
+      },
+      error: (error) => {
+
+      }
+    })
   }
 
   catProdObjeto(): CategoriaProduto {
-    var  empresa = new PessoaJuridica(Number(localStorage.getItem('empresa')))
     return{
       id: this.catForm.get('id')?.value!,
-      descricao: this.catForm.get('descricao')?.value!,
-      empresa: empresa
+      nomeDesc: this.catForm.get('descricao')?.value!,
+      empresa : this.loginService.objetoEmpresa()
     }
   }
 
   cadProdutoCategoria(){
     const categoriaProduto = this.catProdObjeto();
- console.info(categoriaProduto);
     this.service.cadastrarPrduto(categoriaProduto);
+  }
+
+  listarCategoria(){
+
   }
 }
