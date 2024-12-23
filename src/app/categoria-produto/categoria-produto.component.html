@@ -23,12 +23,16 @@
   <tr>
     <th scope="col">ID</th>
     <th scope="col">Nome</th>
+    <th scope="col">Editar</th>
+
   </tr>
 </thead>
 <tbody>
   <tr *ngFor="let cat of lista">
     <td>{{cat.id}}</td>
     <td>{{cat.nomeDesc}}</td>
+    <td><button class="btn btn-primary" (click)="editarProduto(cat)">Editar</button>
+    </td>
   </tr>
 </tbody>
   </table>

@@ -4,7 +4,7 @@ export class CategoriaProduto {
 
   constructor(){}
 
-  id?: Number
-  nomeDesc?: String;
+  id?: number
+  nomeDesc?: string;
   empresa?: PessoaJuridica;
 }
