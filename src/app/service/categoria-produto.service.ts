@@ -73,4 +73,9 @@ excluirCat(categoriaProduto: CategoriaProduto){
   })
 }
 
+buscarPorDesc(descricao: String){
+
+  return this.http.get<CategoriaProduto[]>(this.url + 'buscarPorDescCatgoria/' + descricao + '/' + this.loginService.objetoEmpresa().id)
+}
+
 }

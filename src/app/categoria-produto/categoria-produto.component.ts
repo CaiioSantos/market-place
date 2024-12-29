@@ -13,8 +13,10 @@ import { LoginService } from '../service/login.service';
 })
 export class CategoriaProdutoComponent implements OnInit {
 
+
   lista = new Array<CategoriaProduto>();
   catProduto: CategoriaProduto;
+  varPesquisa: String = '';
 
   catForm = this.form.group({
     id: new FormControl<number | null>(null),
@@ -35,7 +37,7 @@ export class CategoriaProdutoComponent implements OnInit {
     return{
       id: this.catForm.get('id')?.value!,
       nomeDesc: this.catForm.get('descricao')?.value!,
-      empresa : this.loginService.objetoEmpresa()
+      empresa : this.loginService.objetoEmpresa(),
     }
   }
 
@@ -91,4 +93,20 @@ export class CategoriaProdutoComponent implements OnInit {
     this.listarCategoria()
   }
 
+  setPesquisa(val: String) {
+    this.varPesquisa = val;
+
+  }
+
+  pesquisar() {
+    this.service.buscarPorDesc(this.varPesquisa).subscribe({
+      next: (res) => {
+        this.lista = res
+
+      },
+      error: (erro) => {
+        alert(erro)
+      }
+    })
+  }
 }
