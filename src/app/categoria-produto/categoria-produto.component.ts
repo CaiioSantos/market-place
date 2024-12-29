@@ -59,7 +59,6 @@ export class CategoriaProdutoComponent implements OnInit {
     this.service.listarCategoria().subscribe({
       next: (res) =>{
         this.lista = res
-        console.log(this.lista)
       },
       error: (error) => {
 
@@ -68,8 +67,6 @@ export class CategoriaProdutoComponent implements OnInit {
   }
 
   editarProduto(produto: CategoriaProduto): void {
-
-
 
     this.service.buscarPorId(produto.id).subscribe({
       next:(res) => {
@@ -83,6 +80,15 @@ export class CategoriaProdutoComponent implements OnInit {
       },
     });
 
+  }
+
+  excluirCatProduto(produto: CategoriaProduto): void {
+    var confirma  = confirm('deseja mesmo excluir?');
+
+    if (confirma) {
+      this.service.excluirCat(produto)
+    }
+    this.listarCategoria()
   }
 
 }

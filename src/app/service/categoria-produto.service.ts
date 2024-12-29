@@ -54,4 +54,23 @@ buscarPorId(id: any){
   return this.http.get<CategoriaProduto>(this.url + 'buscarPorId/' +id)
 }
 
+excluirCat(categoriaProduto: CategoriaProduto){
+
+  this.http.post<String>(this.url + 'deleteCategoria/', categoriaProduto).subscribe({
+    next:(res) => {
+      var resResposta = JSON.stringify(res);
+      var jsonResposta = JSON.parse(resResposta);
+      if (jsonResposta.error != undefined) {
+        alert(jsonResposta.error)
+      } else {
+        alert(jsonResposta)
+      }
+
+    },
+    error:(error) =>{
+      console.error('Erro ao excluir categoria', error);
+    }
+  })
+}
+
 }
