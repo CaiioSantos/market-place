@@ -18,8 +18,7 @@
     </div>
 
   </form>
-  <div>
-    <label for="pesquisa" class="form-label">Pesquisar</label>
+  <div style="margin-top: 15px;">
     <div class="row">
       <div class="col-10">
         <input type="text" #pesquisa (blur)="setPesquisa(pesquisa.value)" class="form-control" id="pesquisa" name="pesquisa" required placeholder="Nome da Categoria para pesquisar" formControlName="descricao" >
@@ -31,8 +30,8 @@
   </div>
 
   <table class="table" >
-<thead>
-  <tr>
+<thead style="margin-top: 15px;">
+  <tr >
     <th scope="col">ID</th>
     <th scope="col">Nome</th>
     <th scope="col">Editar</th>
@@ -51,5 +50,18 @@
   </tr>
 </tbody>
   </table>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item ">
+        <a class="page-link " (click)="voltar()">Voltar</a>
+      </li>
+      <li class="page-item" *ngFor="let item of this.arrayNumber; let i = index">
+        <a class="page-link" (click)="buscarPagina(i + 1)">{{(i  + 1)}}</a></li>
+      <li class="page-item">
+        <a class="page-link"(click)="avancar()">Avançar</a>
+      </li>
+    </ul>
+  </nav>
 
 </div>

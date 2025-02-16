@@ -14,9 +14,13 @@ import { LoginService } from '../service/login.service';
 export class CategoriaProdutoComponent implements OnInit {
 
 
+
   lista = new Array<CategoriaProduto>();
   catProduto: CategoriaProduto;
   varPesquisa: String = '';
+  qtdPagina: number = 0;
+  arrayNumber: number []= [];
+  paginaAtual: number = 1;
 
   catForm = this.form.group({
     id: new FormControl<number | null>(null),
@@ -29,7 +33,17 @@ export class CategoriaProdutoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listarCategoria();
+
+    this.service.qtdPaginas().subscribe({
+      next: (value) => {
+        this.qtdPagina = value;
+        this.arrayNumber = Array.from({ length: this.qtdPagina }, (_, i) => i);
+      },
+      error: (err) => {
+
+      },
+    });
+    this.listarCategoria(this.paginaAtual);
 
   }
 
@@ -48,7 +62,7 @@ export class CategoriaProdutoComponent implements OnInit {
         // Resetar o formulário após cadastrar
         this.catForm.reset();
         // Atualizar a lista de categorias
-        this.listarCategoria();
+        this.listarCategoria(this.paginaAtual);
       },
       error: (error) => {
         console.error('Erro ao cadastrar a categoria', error);
@@ -57,8 +71,9 @@ export class CategoriaProdutoComponent implements OnInit {
   }
 
 
-  listarCategoria(){
-    this.service.listarCategoria().subscribe({
+  listarCategoria(page: number){
+
+    this.service.listarCategoria(page).subscribe({
       next: (res) =>{
         this.lista = res
       },
@@ -90,7 +105,7 @@ export class CategoriaProdutoComponent implements OnInit {
     if (confirma) {
       this.service.excluirCat(produto)
     }
-    this.listarCategoria()
+    this.listarCategoria(this.paginaAtual)
   }
 
   setPesquisa(val: String) {
@@ -99,7 +114,14 @@ export class CategoriaProdutoComponent implements OnInit {
   }
 
   pesquisar() {
+
+    if (this.varPesquisa.length <= 0) {
+      this.listarCategoria(this.paginaAtual);
+      return;
+    }
+
     this.service.buscarPorDesc(this.varPesquisa).subscribe({
+
       next: (res) => {
         this.lista = res
 
@@ -108,5 +130,25 @@ export class CategoriaProdutoComponent implements OnInit {
         alert(erro)
       }
     })
+  }
+
+  buscarPagina(page: number) {
+    this.listarCategoria(page);
+  }
+
+  voltar() {
+
+    if(this.paginaAtual.valueOf() > 0){
+      this.paginaAtual =  this.paginaAtual.valueOf() - 1;
+    }
+    this.listarCategoria(this.paginaAtual)
+  }
+
+  avancar(): void {
+
+    if(this.paginaAtual.valueOf() < 0){
+      this.paginaAtual =  this.paginaAtual.valueOf() + 1;
+    }
+    this.listarCategoria(this.paginaAtual)
   }
 }

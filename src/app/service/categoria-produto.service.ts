@@ -44,9 +44,9 @@ export class CategoriaProdutoService {
   }
 
 
-listarCategoria(){
-
-  return this.http.get<CategoriaProduto[]>(this.url + 'listarCategoriaProduto/'+ this.loginService.objetoEmpresa().id)
+listarCategoria(page: Number){
+  console.info(this.loginService.codEmpresa())
+  return this.http.get<CategoriaProduto[]>(this.url + 'listaPorPageCategoriaProduto/'+ this.loginService.objetoEmpresa().id + '/' + page)
 }
 
 buscarPorId(id: any){
@@ -76,6 +76,11 @@ excluirCat(categoriaProduto: CategoriaProduto){
 buscarPorDesc(descricao: String){
 
   return this.http.get<CategoriaProduto[]>(this.url + 'buscarPorDescCatgoria/' + descricao + '/' + this.loginService.objetoEmpresa().id)
+}
+
+qtdPaginas(){
+
+  return this.http.get<number>(this.url + 'qtdPaginaCategoriaProduto/' + this.loginService.objetoEmpresa().id)
 }
 
 }
