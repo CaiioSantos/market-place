@@ -10,6 +10,7 @@ import { InterceptorProjetoInterceptor } from './interceptor/interceptor-projeto
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CategoriaProdutoComponent } from './categoria-produto/categoria-produto.component';
+import { MarcaProdutoComponent } from './marca-produto/marca-produto.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { CategoriaProdutoComponent } from './categoria-produto/categoria-produto
     LoginComponent,
     HomeComponent,
     NavbarComponent,
-    CategoriaProdutoComponent
+    CategoriaProdutoComponent,
+    MarcaProdutoComponent
   ],
   imports: [
     BrowserModule,

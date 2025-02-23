@@ -1,39 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriaProdutoService } from '../service/categoria-produto.service';
+import { MarcaProdutoService } from '../service/marca-produto.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { CategoriaProduto } from '../model/categoria-produto';
-import { PessoaJuridica } from '../model/pessoa-juridica';
+import { MarcaProduto } from '../model/marca-produto';
 import { LoginService } from '../service/login.service';
 
 @Component({
-  selector: 'app-categoria-produto',
-  templateUrl: './categoria-produto.component.html',
-  styleUrls: ['./categoria-produto.component.scss']
+  selector: 'app-marca-produto',
+  templateUrl: './marca-produto.component.html',
+  styleUrls: ['./marca-produto.component.scss']
 })
-export class CategoriaProdutoComponent implements OnInit {
+export class MarcaProdutoComponent implements OnInit {
 
 
 
-  lista = new Array<CategoriaProduto>();
-  catProduto: CategoriaProduto;
+  lista = new Array<MarcaProduto>();
+  catProduto: MarcaProduto;
   varPesquisa: String = '';
   qtdPagina: number = 0;
   arrayNumber: number []= [];
   paginaAtual: number = 0;
 
-  catForm = this.form.group({
+  marForm = this.form.group({
     id: new FormControl<number | null>(null),
     descricao: new FormControl<string | null>(null, Validators.required),
   });
 
-  constructor(private form: FormBuilder, private service: CategoriaProdutoService,
+  constructor(private form: FormBuilder, private service: MarcaProdutoService,
      private route: Router, private loginService: LoginService){
-      this.catProduto = new CategoriaProduto();
+      this.catProduto = new MarcaProduto();
   }
 
   ngOnInit(): void {
-
     this.service.qtdPaginas().subscribe({
       next: (value) => {
         this.qtdPagina = value;
@@ -43,38 +41,53 @@ export class CategoriaProdutoComponent implements OnInit {
 
       },
     });
-    this.listarCategoria(this.paginaAtual);
+
+    this.listarMarca(this.qtdPagina);
+  }
+
+  atualizarPagina(): void {
+    this.service.qtdPaginas().subscribe({
+      next: (value) => {
+        this.qtdPagina = Number(value);
+        this.arrayNumber = Array.from({ length: this.qtdPagina }, (_, i) => i);
+      },
+      error: (err) => {
+
+      },
+    });
 
   }
 
-  catProdObjeto(): CategoriaProduto {
+  catProdObjeto(): MarcaProduto {
     return{
-      id: this.catForm.get('id')?.value!,
-      nomeDesc: this.catForm.get('descricao')?.value!,
+      id: this.marForm.get('id')?.value!,
+      nomeDesc: this.marForm.get('descricao')?.value!,
       empresa : this.loginService.objetoEmpresa(),
     }
   }
 
-  cadProdutoCategoria() {
-    const categoriaProduto = this.catProdObjeto();
-    this.service.cadastrarPrduto(categoriaProduto).subscribe({
+  cadProdutoMarca() {
+    const marcaProduto = this.catProdObjeto();
+    this.service.cadastrarPrduto(marcaProduto).subscribe({
       next: () => {
         // Resetar o formulário após cadastrar
-        this.catForm.reset();
-        // Atualizar a lista de categorias
-        this.listarCategoria(this.paginaAtual);
+        this.limpar();
+        // Atualizar a lista de marcas
+        this.listarMarca(this.paginaAtual);
+        console.log(this.paginaAtual)
       },
       error: (error) => {
-        console.error('Erro ao cadastrar a categoria', error);
+        console.error('Erro ao cadastrar a marca', error);
       }
     });
   }
 
 
-  listarCategoria(page: number){
+  listarMarca(page: number){
 
-    this.service.listarCategoria(page).subscribe({
+    this.service.listarMarca(page).subscribe({
       next: (res) =>{
+        this.atualizarPagina();
         this.lista = res
       },
       error: (error) => {
@@ -83,12 +96,12 @@ export class CategoriaProdutoComponent implements OnInit {
     })
   }
 
-  editarProduto(produto: CategoriaProduto): void {
+  editarProduto(produto: MarcaProduto): void {
 
     this.service.buscarPorId(produto.id).subscribe({
       next:(res) => {
         this.catProduto = res;
-        this.catForm.setValue({
+        this.marForm.setValue({
           id: this.catProduto.id ?? null,
           descricao: this.catProduto.nomeDesc ?? null });
       },
@@ -99,13 +112,13 @@ export class CategoriaProdutoComponent implements OnInit {
 
   }
 
-  excluirCatProduto(produto: CategoriaProduto): void {
+  excluirCatProduto(produto: MarcaProduto): void {
     var confirma  = confirm('deseja mesmo excluir?');
 
     if (confirma) {
       this.service.excluirCat(produto)
     }
-    this.listarCategoria(this.paginaAtual)
+    this.listarMarca(this.paginaAtual)
   }
 
   setPesquisa(val: String) {
@@ -116,7 +129,7 @@ export class CategoriaProdutoComponent implements OnInit {
   pesquisar() {
 
     if (this.varPesquisa.length <= 0) {
-      this.listarCategoria(this.paginaAtual);
+      this.listarMarca(this.paginaAtual);
       return;
     }
 
@@ -133,7 +146,7 @@ export class CategoriaProdutoComponent implements OnInit {
   }
 
   buscarPagina(page: number) {
-    this.listarCategoria(page);
+    this.listarMarca(page);
   }
 
   voltar() {
@@ -141,7 +154,7 @@ export class CategoriaProdutoComponent implements OnInit {
     if(this.paginaAtual.valueOf() > 0){
       this.paginaAtual =  this.paginaAtual.valueOf() - 1;
     }
-    this.listarCategoria(this.paginaAtual)
+    this.listarMarca(this.paginaAtual)
   }
 
   avancar(): void {
@@ -149,6 +162,9 @@ export class CategoriaProdutoComponent implements OnInit {
     if(this.paginaAtual.valueOf() < 0){
       this.paginaAtual =  this.paginaAtual.valueOf() + 1;
     }
-    this.listarCategoria(this.paginaAtual)
+    this.listarMarca(this.paginaAtual)
   }
+
+  limpar() {
+    this.marForm.reset();}
 }
