@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { guardiaoGuard } from './guard/guardiao.guard';
 import { CategoriaProdutoComponent } from './categoria-produto/categoria-produto.component';
 import { MarcaProdutoComponent } from './marca-produto/marca-produto.component';
+import { AcessoComponent } from './acesso/acesso.component';
 
 const routes: Routes = [
 
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: '', component: AppComponent},
   {path: 'home', component: HomeComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
   {path: 'categoria-produto', component: CategoriaProdutoComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
-  {path: 'marca-produto', component: MarcaProdutoComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}}
+  {path: 'marca-produto', component: MarcaProdutoComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
+  {path: 'acesso', component: AcessoComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}}
 
 ];
 

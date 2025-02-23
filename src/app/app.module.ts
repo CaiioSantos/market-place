@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CategoriaProdutoComponent } from './categoria-produto/categoria-produto.component';
 import { MarcaProdutoComponent } from './marca-produto/marca-produto.component';
+import { AcessoComponent } from './acesso/acesso.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MarcaProdutoComponent } from './marca-produto/marca-produto.component';
     HomeComponent,
     NavbarComponent,
     CategoriaProdutoComponent,
-    MarcaProdutoComponent
+    MarcaProdutoComponent,
+    AcessoComponent
   ],
   imports: [
     BrowserModule,
