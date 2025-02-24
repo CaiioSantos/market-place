@@ -7,6 +7,7 @@ import { guardiaoGuard } from './guard/guardiao.guard';
 import { CategoriaProdutoComponent } from './categoria-produto/categoria-produto.component';
 import { MarcaProdutoComponent } from './marca-produto/marca-produto.component';
 import { AcessoComponent } from './acesso/acesso.component';
+import { PessoaJuridicaComponent } from './pessoa-juridica/pessoa-juridica.component';
 
 const routes: Routes = [
 
@@ -15,8 +16,8 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
   {path: 'categoria-produto', component: CategoriaProdutoComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
   {path: 'marca-produto', component: MarcaProdutoComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
-  {path: 'acesso', component: AcessoComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}}
-
+  {path: 'acesso', component: AcessoComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
+  {path: 'pessoa-juridica', component: PessoaJuridicaComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}}
 ];
 
 @NgModule({

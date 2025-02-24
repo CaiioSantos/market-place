@@ -12,6 +12,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CategoriaProdutoComponent } from './categoria-produto/categoria-produto.component';
 import { MarcaProdutoComponent } from './marca-produto/marca-produto.component';
 import { AcessoComponent } from './acesso/acesso.component';
+import { PessoaJuridicaComponent } from './pessoa-juridica/pessoa-juridica.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AcessoComponent } from './acesso/acesso.component';
     NavbarComponent,
     CategoriaProdutoComponent,
     MarcaProdutoComponent,
-    AcessoComponent
+    AcessoComponent,
+    PessoaJuridicaComponent
   ],
   imports: [
     BrowserModule,
