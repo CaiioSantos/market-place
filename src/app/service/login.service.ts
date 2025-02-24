@@ -65,6 +65,8 @@ export class LoginService {
   }
 
   objetoEmpresa(): PessoaJuridica {
-    return new PessoaJuridica(Number(this.codEmpresa()));
+    var pessoaJuridica = new PessoaJuridica();
+    pessoaJuridica.id = Number(this.codEmpresa());
+    return pessoaJuridica;
   }
 }

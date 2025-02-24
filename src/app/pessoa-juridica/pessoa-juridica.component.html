@@ -1,1 +1,68 @@
-<p>pessoa-juridica works!</p>
+<p style="text-align: center; font-weight: bold;font-size: 15px;">Cadastro de Pessoa Juridica</p>
+<div class="container-fluid">
+
+  <form class="row g-3" [formGroup]="pessoaJuridicaForm" >
+    <div class="col-2">
+      <label for="id" class="form-label">ID</label>
+      <input type="text" class="form-control" id="id" name="id" readonly placeholder="ID" formControlName="id">
+    </div>
+    <div class="col-10">
+      <label for="descricao" class="form-label">Nome da empresa</label>
+      <input type="text" class="form-control" id="nome" name="nome" required placeholder="Nome do Permissao" formControlName="descricao">
+      <div *ngIf="pessoaJuridicaForm.get('nome')?.errors" style="font-size:8px;color: brown;">
+        Nome obrigatorio!
+      </div>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" [disabled]="!pessoaJuridicaForm.valid" (click)="limpar()">Limpar</button>
+      <button type="submit" class="btn btn-primary" style="margin-left: 3%;" [disabled]="!pessoaJuridicaForm.valid" (click)="cadastrarAcesso()">Cadastrar</button>
+    </div>
+
+  </form>
+  <div style="margin-top: 15px;">
+    <div class="row">
+      <div class="col-10">
+        <input type="text" #pesquisa (blur)="setPesquisa(pesquisa.value)" class="form-control" id="pesquisa" name="pesquisa" required placeholder="Nome da Marca para pesquisar" formControlName="descricao" >
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-success" (click)="pesquisar()">Pesquisar</button>
+      </div>
+    </div>
+  </div>
+
+  <table class="table" >
+<thead style="margin-top: 15px;">
+  <tr >
+    <th scope="col">ID</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Editar</th>
+    <th scope="col">Excluir</th>
+
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let acesso of lista">
+    <td>{{acesso.id}}</td>
+    <td>{{acesso.nome}}</td>
+    <td><button class="btn btn-primary" (click)="editarAcesso(acesso)">Editar</button>
+    </td>
+    <td><button class="btn btn-danger" (click)="excluirAcesso(acesso)">Excluir</button>
+    </td>
+  </tr>
+</tbody>
+  </table>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item ">
+        <a class="page-link " (click)="voltar()">Voltar</a>
+      </li>
+      <li class="page-item" *ngFor="let item of this.arrayNumber; let i = index">
+        <a class="page-link" (click)="buscarPagina(i)">{{(i  + 1)}}</a></li>
+      <li class="page-item">
+        <a class="page-link"(click)="avancar()">Avançar</a>
+      </li>
+    </ul>
+  </nav>
+
+</div>

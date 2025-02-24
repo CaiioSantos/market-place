@@ -1,10 +1,13 @@
+import { PessoaJuridica } from "./pessoa-juridica";
+
 export class Pessoa {
 
-  id?: Number;
-  nome?: String;
-  email?: String;
-  telefone?: String;
-  tipoPessoa?: String;
+  id?: number;
+  nome?: string;
+  email?: string;
+  telefone?: string;
+  tipoPessoa?: string;
+  empresa?: PessoaJuridica
 
   constructor(){
   }
