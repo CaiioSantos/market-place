@@ -1,0 +1,117 @@
+<p style="text-align: center; font-weight: bold;font-size: 15px;">Cadastro de Pessoa Fisica</p>
+<div class="container-fluid">
+
+  <form class="row g-3" [formGroup]="pessoafisicaForm" >
+    <div class="col-2">
+      <label for="id" class="form-label">ID</label>
+      <input type="text" class="form-control" id="id" name="id" readonly placeholder="ID" formControlName="id">
+    </div>
+
+    <div class="col-4">
+      <label for="descricao" class="form-label">Tipo Pessoa</label>
+      <select class="form-select" formControlName = "tipoPessoa" required>
+        <option value="" selected>Selecione</option>
+        <option value="CLIENTE">Cliente</option>
+        <option value="FORNECEDOR">Fornecedor</option>
+      </select>
+      <div *ngIf="pessoafisicaForm.get('tipoPessoa')?.errors" style="font-size:8px;color: brown;">
+        Tipo Pessoa obrigatorio!
+      </div>
+    </div>
+
+
+
+    <div class="col-4">
+      <label for="descricao" class="form-label">Nome</label>
+      <input type="text" class="form-control" id="nome" name="nome" required placeholder="Nome" formControlName="nome">
+      <div *ngIf="pessoafisicaForm.get('nome')?.errors" style="font-size:8px;color: brown;">
+        Nome obrigatorio!
+      </div>
+    </div>
+
+    <div class="col-4">
+      <label for="descricao" class="form-label">CPF</label>
+      <input type="text" class="form-control" id="cpf" name="cpf" required placeholder="CPF" formControlName="cpf">
+      <div *ngIf="pessoafisicaForm.get('cpf')?.errors" style="font-size:8px;color: brown;">
+        CPF obrigatorio!
+      </div>
+    </div>
+
+    <div class="col-4">
+      <label for="descricao" class="form-label">Data Nascimento</label>
+      <input type="text" class="form-control" id="dataNascimento" name="dataNascimento" required placeholder="Data Nascimento" formControlName="dataNascimento">
+      <div *ngIf="pessoafisicaForm.get('dataNascimento')?.errors" style="font-size:8px;color: brown;">
+        Data Nascimento obrigatorio!
+      </div>
+    </div>
+
+    <div class="col-4">
+      <label for="descricao" class="form-label">Email do responsável</label>
+      <input type="text" class="form-control" id="email" name="email" required placeholder="Email do responsável" formControlName="email">
+      <div *ngIf="pessoafisicaForm.get('email')?.errors" style="font-size:8px;color: brown;">
+        Email do responsável obrigatorio!
+      </div>
+    </div>
+    <div class="col-4">
+      <label for="descricao" class="form-label">Telefone do Responsável</label>
+      <input type="text" class="form-control" id="telefone" name="telefone"mask="(00) 0 0000-0000"  required placeholder="Telefone do Responsável" formControlName="telefone">
+      <div *ngIf="pessoafisicaForm.get('telefone')?.errors" style="font-size:8px;color: brown;">
+        Telefone do Responsável obrigatorio!
+      </div>
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" [disabled]="!pessoafisicaForm.valid" (click)="limpar()">Limpar</button>
+      <button type="submit" class="btn btn-primary" style="margin-left: 3%;" [disabled]="!pessoafisicaForm.valid" (click)="cadastrarAcesso()">Cadastrar</button>
+      <button type="submit" class="btn btn-primary" style="margin-left: 3%;"  (click)="testeform()">Cadastrar</button>
+
+    </div>
+
+  </form>
+  <div style="margin-top: 15px;">
+    <div class="row">
+      <div class="col-10">
+        <input type="text" #pesquisa (blur)="setPesquisa(pesquisa.value)" class="form-control" id="pesquisa" name="pesquisa" required placeholder="Nome da Marca para pesquisar" formControlName="descricao" >
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-success" (click)="pesquisar()">Pesquisar</button>
+      </div>
+    </div>
+  </div>
+
+  <table class="table" >
+<thead style="margin-top: 15px;">
+  <tr >
+    <th scope="col">ID</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Editar</th>
+    <th scope="col">Excluir</th>
+
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let pessoaFisica of lista">
+    <td>{{pessoaFisica.id}}</td>
+    <td>{{pessoaFisica.nome}}</td>
+    <td><button class="btn btn-primary" (click)="editarAcesso(pessoaFisica)">Editar</button>
+    </td>
+    <td><button class="btn btn-danger" (click)="excluirAcesso(pessoaFisica)">Excluir</button>
+    </td>
+  </tr>
+</tbody>
+  </table>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item ">
+        <a class="page-link " (click)="voltar()">Voltar</a>
+      </li>
+      <li class="page-item" *ngFor="let item of this.arrayNumber; let i = index">
+        <a class="page-link" (click)="buscarPagina(i)">{{(i  + 1)}}</a></li>
+      <li class="page-item">
+        <a class="page-link"(click)="avancar()">Avançar</a>
+      </li>
+    </ul>
+  </nav>
+
+</div>
