@@ -13,6 +13,7 @@ import { CategoriaProdutoComponent } from './categoria-produto/categoria-produto
 import { MarcaProdutoComponent } from './marca-produto/marca-produto.component';
 import { AcessoComponent } from './acesso/acesso.component';
 import { PessoaJuridicaComponent } from './pessoa-juridica/pessoa-juridica.component';
+import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask, provideNgxMask } from "ngx-mask";
 
 
 @NgModule({
@@ -30,12 +31,13 @@ import { PessoaJuridicaComponent } from './pessoa-juridica/pessoa-juridica.compo
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
-
+    HttpClientModule,
+    NgxMaskDirective, NgxMaskPipe
   ],
   providers: [{
-    provide: HTTP_INTERCEPTORS, useClass: InterceptorProjetoInterceptor, multi: true
-  }],
+    provide: HTTP_INTERCEPTORS, useClass: InterceptorProjetoInterceptor, multi: true },
+    provideNgxMask()
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -55,9 +55,9 @@ buscarPorId(id: any){
   return this.http.get<PessoaJuridica>(this.url + 'buscarPjId/' +id)
 }
 
-excluirPessoaJuridica(acesso: PessoaJuridica){
+excluirPessoaJuridica(pessoaJuridica: PessoaJuridica){
 
-  this.http.post<String>(this.url + 'deletePessoaJuridica/', acesso).subscribe({
+  this.http.post<String>(this.url + 'deletePessoaJuridicia/', pessoaJuridica).subscribe({
     next:(res) => {
       var resResposta = JSON.stringify(res);
       var jsonResposta = JSON.parse(resResposta);

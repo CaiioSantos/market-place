@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./pessoa-juridica.component.scss']
 })
 export class PessoaJuridicaComponent implements OnInit {
+testeform() {
+console.info(this.pessoaJuridicaForm)
+}
 
   lista = new Array<PessoaJuridica>();
     pessoaJuridica: PessoaJuridica;
@@ -18,19 +21,20 @@ export class PessoaJuridicaComponent implements OnInit {
     qtdPagina: number = 0;
     arrayNumber: number []= [];
     paginaAtual: number = 0;
+    categorias: string [] = [];
 
     pessoaJuridicaForm = this.form.group({
-        id: new FormControl<number | null>(null, Validators.required),
+        id: new FormControl<number | null>(null),
         cnpj: new FormControl<string | null>(null),
         inscEstadual: new FormControl<string | null>(null, Validators.required),
         inscMunicipal: new FormControl<string | null>(null, Validators.required),
         nomeFantasia: new FormControl<string | null>(null, Validators.required),
         razaoSocial: new FormControl<string | null>(null, Validators.required),
-        categoria: new FormControl<string | null>(null, Validators.required),
-        nome: new FormControl<string | null>(null, Validators.required),
-        email: new FormControl<string | null>(null, Validators.required),
-        telefone: new FormControl<string | null>(null, Validators.required),
-        tipoPessoa: new FormControl<string | null>(null, Validators.required),
+        categoria: new FormControl<string | null>("", Validators.required),
+        nome: new FormControl<string | null>(null),
+        email: new FormControl<string | null>(null, Validators.email),
+        telefone: new FormControl<string | null>(null),
+        tipoPessoa: new FormControl<string | null>(""),
         empresa: [this.loginService.objetoEmpresa(), Validators.required]
 
       });
@@ -100,6 +104,15 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
         return{
           id: this.pessoaJuridicaForm.get('id')?.value!,
           cnpj: this.pessoaJuridicaForm.get('cnpj')?.value!,
+          inscEstadual: this.pessoaJuridicaForm.get('inscEstadual')?.value!,
+          inscMunicipal: this.pessoaJuridicaForm.get('inscMunicipal')?.value!,
+          nomeFantasia : this.pessoaJuridicaForm.get('nomeFantasia')?.value!,
+          razaoSocial: this.pessoaJuridicaForm.get('razaoSocial')?.value!,
+          categoria: this.pessoaJuridicaForm.get('categoria')?.value!,
+          nome : this.pessoaJuridicaForm.get('nome')?.value!,
+          email: this.pessoaJuridicaForm.get('email')?.value!,
+          telefone: this.pessoaJuridicaForm.get('telefone')?.value!,
+          tipoPessoa: this.pessoaJuridicaForm.get('tipoPessoa')?.value!,
           empresa : this.pessoaJuridicaForm.get('empresa')?.value!,
         }
       }

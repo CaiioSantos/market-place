@@ -6,13 +6,93 @@
       <label for="id" class="form-label">ID</label>
       <input type="text" class="form-control" id="id" name="id" readonly placeholder="ID" formControlName="id">
     </div>
-    <div class="col-10">
-      <label for="descricao" class="form-label">Nome da empresa</label>
-      <input type="text" class="form-control" id="nome" name="nome" required placeholder="Nome do Permissao" formControlName="descricao">
-      <div *ngIf="pessoaJuridicaForm.get('nome')?.errors" style="font-size:8px;color: brown;">
-        Nome obrigatorio!
+    <div class="col-5">
+      <label for="descricao" class="form-label">Nome Fantasia</label>
+      <input type="text" class="form-control" id="nomeFantasia" name="nomeFantasia" required placeholder="Nome Fantasia" formControlName="nomeFantasia">
+      <div *ngIf="pessoaJuridicaForm.get('nomeFantasia')?.errors" style="font-size:8px;color: brown;">
+        Nome Fantasia obrigatorio!
       </div>
     </div>
+    <div class="col-5">
+      <label for="descricao" class="form-label">CNPJ</label>
+      <input type="text" class="form-control" id="cnpj" name="cnpj" required placeholder="CNPJ" formControlName="cnpj" mask="00.000.000/0000-00">
+      <div *ngIf="pessoaJuridicaForm.get('cnpj')?.errors" style="font-size:8px;color: brown;">
+        CNPJ obrigatorio!
+      </div>
+    </div>
+
+    <div class="col-6">
+      <label for="descricao" class="form-label">Inscrição Estadual</label>
+      <input type="text" class="form-control" id="inscEstadual" name="inscEstadual" required placeholder="Inscrição Estadual" formControlName="inscEstadual">
+      <div *ngIf="pessoaJuridicaForm.get('inscEstadual')?.errors" style="font-size:8px;color: brown;">
+        Inscrição Estadual obrigatorio!
+      </div>
+    </div>
+    <div class="col-6">
+      <label for="descricao" class="form-label">Inscrição Municipal</label>
+      <input type="text" class="form-control" id="inscMunicipal" name="inscMunicipal" required placeholder="Inscrição Municipal" formControlName="inscMunicipal">
+      <div *ngIf="pessoaJuridicaForm.get('inscMunicipal')?.errors" style="font-size:8px;color: brown;">
+        Inscrição Municipal obrigatorio!
+      </div>
+    </div>
+
+    <div class="col-4">
+      <label for="descricao" class="form-label">Razão Social</label>
+      <input type="text" class="form-control" id="razaoSocial" name="razaoSocial" required placeholder="Razão Social" formControlName="razaoSocial">
+      <div *ngIf="pessoaJuridicaForm.get('razaoSocial')?.errors" style="font-size:8px;color: brown;">
+        Razão Social obrigatorio!
+      </div>
+    </div>
+    <div class="col-4">
+      <label for="descricao" class="form-label">Categoria</label>
+
+      <select class="form-select" formControlName = "categoria" required>
+        <option value="" selected>Selecione</option>
+        <option value="MEI">Micro Empreendedor</option>
+        <option value="ME">Micro Empresa</option>
+        <option value="LTDA">Sociedade Ltda</option>
+      </select>
+      <div *ngIf="pessoaJuridicaForm.get('categoria')?.errors" style="font-size:8px;color: brown;">
+        Categoria obrigatorio!
+      </div>
+    </div>
+
+    <div class="col-4">
+      <label for="descricao" class="form-label">Tipo Pessoa</label>
+      <select class="form-select" formControlName = "tipoPessoa" required>
+        <option value="" selected>Selecione</option>
+        <option value="JURIDICA">Juridica</option>
+        <option value="FORNECEDOR">Fornecedor</option>
+      </select>
+
+      <div *ngIf="pessoaJuridicaForm.get('tipoPessoa')?.errors" style="font-size:8px;color: brown;">
+        Tipo Pessoa obrigatorio!
+      </div>
+    </div>
+
+    <div class="col-4">
+      <label for="descricao" class="form-label">Nome do responsável</label>
+      <input type="text" class="form-control" id="nome" name="nome" required placeholder="Nome do responsável" formControlName="nome">
+      <div *ngIf="pessoaJuridicaForm.get('nome')?.errors" style="font-size:8px;color: brown;">
+        Nome do responsável obrigatorio!
+      </div>
+    </div>
+
+    <div class="col-4">
+      <label for="descricao" class="form-label">Email do responsável</label>
+      <input type="text" class="form-control" id="email" name="email" required placeholder="Email do responsável" formControlName="email">
+      <div *ngIf="pessoaJuridicaForm.get('email')?.errors" style="font-size:8px;color: brown;">
+        Email do responsável obrigatorio!
+      </div>
+    </div>
+    <div class="col-4">
+      <label for="descricao" class="form-label">Telefone do Responsável</label>
+      <input type="text" class="form-control" id="telefone" name="telefone"mask="(00) 0 0000-0000"  required placeholder="Telefone do Responsável" formControlName="telefone">
+      <div *ngIf="pessoaJuridicaForm.get('telefone')?.errors" style="font-size:8px;color: brown;">
+        Telefone do Responsável obrigatorio!
+      </div>
+    </div>
+
     <div class="col-12">
       <button type="submit" class="btn btn-primary" [disabled]="!pessoaJuridicaForm.valid" (click)="limpar()">Limpar</button>
       <button type="submit" class="btn btn-primary" style="margin-left: 3%;" [disabled]="!pessoaJuridicaForm.valid" (click)="cadastrarAcesso()">Cadastrar</button>
@@ -41,12 +121,12 @@
   </tr>
 </thead>
 <tbody>
-  <tr *ngFor="let acesso of lista">
-    <td>{{acesso.id}}</td>
-    <td>{{acesso.nome}}</td>
-    <td><button class="btn btn-primary" (click)="editarAcesso(acesso)">Editar</button>
+  <tr *ngFor="let pessoaJuridica of lista">
+    <td>{{pessoaJuridica.id}}</td>
+    <td>{{pessoaJuridica.nomeFantasia}}</td>
+    <td><button class="btn btn-primary" (click)="editarAcesso(pessoaJuridica)">Editar</button>
     </td>
-    <td><button class="btn btn-danger" (click)="excluirAcesso(acesso)">Excluir</button>
+    <td><button class="btn btn-danger" (click)="excluirAcesso(pessoaJuridica)">Excluir</button>
     </td>
   </tr>
 </tbody>
