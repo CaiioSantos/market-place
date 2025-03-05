@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { PessoaJuridicaService } from '../service/pessoa-juridica.service';
 import { LoginService } from '../service/login.service';
 import { Router } from '@angular/router';
+import { Endereco } from '../model/endereco';
 
 @Component({
   selector: 'app-pessoa-juridica',
@@ -16,6 +17,7 @@ console.info(this.pessoaJuridicaForm)
 }
 
   lista = new Array<PessoaJuridica>();
+    enderecos =  new Array<Endereco>()
     pessoaJuridica: PessoaJuridica;
     varPesquisa: String = '';
     qtdPagina: number = 0;
@@ -35,6 +37,24 @@ console.info(this.pessoaJuridicaForm)
         email: new FormControl<string | null>(null, Validators.email),
         telefone: new FormControl<string | null>(null),
         tipoPessoa: new FormControl<string | null>(""),
+        endereco: [this.enderecos],
+        empresa: [this.loginService.objetoEmpresa(), Validators.required]
+
+      });
+
+      enderecoForm = this.form.group({
+        id: new FormControl<number | null>(null),
+        ruaLogra: new FormControl<string | null>(null),
+        cep: new FormControl<string | null>(null, Validators.required),
+        numero: new FormControl<string | null>(null, Validators.required),
+        complemento: new FormControl<string | null>(null, Validators.required),
+        bairro: new FormControl<string | null>(null, Validators.required),
+        uf: new FormControl<string | null>("", Validators.required),
+        cidade: new FormControl<string | null>(null),
+        estado: new FormControl<string | null>(null, Validators.email),
+        tipoEndereco: new FormControl<string | null>(""),
+        tipoPessoa: new FormControl<string | null>(""),
+        endereco: [this.enderecos],
         empresa: [this.loginService.objetoEmpresa(), Validators.required]
 
       });
@@ -113,6 +133,7 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
           email: this.pessoaJuridicaForm.get('email')?.value!,
           telefone: this.pessoaJuridicaForm.get('telefone')?.value!,
           tipoPessoa: this.pessoaJuridicaForm.get('tipoPessoa')?.value!,
+          endereco: this.pessoaJuridicaForm.get('endereco')?.value!,
           empresa : this.pessoaJuridicaForm.get('empresa')?.value!,
         }
       }
@@ -122,6 +143,8 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
       }
 
    editarAcesso(pessoaJuridica: PessoaJuridica): void {
+    console.log(pessoaJuridica)
+    console.log(this.pessoaJuridicaForm)
 
       this.service.buscarPorId(pessoaJuridica.id).subscribe({
         next:(res) => {
@@ -138,6 +161,7 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
             email: this.pessoaJuridica.email ?? null,
             telefone: this.pessoaJuridica.telefone ?? null,
             tipoPessoa: this.pessoaJuridica.tipoPessoa ?? null,
+            endereco: this.pessoaJuridica.endereco ?? null,
             empresa: this.pessoaJuridica.empresa ?? null
 
           });
