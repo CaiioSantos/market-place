@@ -1,15 +1,15 @@
 export class Endereco {
 
-  id?: Number;
-   ruaLogra?: String;
-   cep?: String;
-   numero?: String;
-   complemento?: String;
-   bairro?: String;
-   uf?: String;
-   cidade?: String;
-   estado?: String;
-   tipoEndereco?: String;
+  id?: number;
+   ruaLogra?: string;
+   cep?: string;
+   numero?: string;
+   complemento?: string;
+   bairro?: string;
+   uf?: string;
+   cidade?: string;
+   estado?: string;
+   tipoEndereco?: string;
 
    constructor(){
 

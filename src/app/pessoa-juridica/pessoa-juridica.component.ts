@@ -12,9 +12,6 @@ import { Endereco } from '../model/endereco';
   styleUrls: ['./pessoa-juridica.component.scss']
 })
 export class PessoaJuridicaComponent implements OnInit {
-testeform() {
-console.info(this.pessoaJuridicaForm)
-}
 
   lista = new Array<PessoaJuridica>();
     enderecos =  new Array<Endereco>()
@@ -51,10 +48,8 @@ console.info(this.pessoaJuridicaForm)
         bairro: new FormControl<string | null>(null, Validators.required),
         uf: new FormControl<string | null>("", Validators.required),
         cidade: new FormControl<string | null>(null),
-        estado: new FormControl<string | null>(null, Validators.email),
+        estado: new FormControl<string | null>(null, Validators.required),
         tipoEndereco: new FormControl<string | null>(""),
-        tipoPessoa: new FormControl<string | null>(""),
-        endereco: [this.enderecos],
         empresa: [this.loginService.objetoEmpresa(), Validators.required]
 
       });
@@ -104,13 +99,12 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
 
   }
 
-  cadastrarAcesso() {
+  cadastrarPessoaJuridica() {
     const pessoaJuridica = this.catProdObjeto();
+    console.info(pessoaJuridica);
     this.service.cadastrarPessoaJuridica(pessoaJuridica).subscribe({
       next: () => {
-        // Resetar o formulário após cadastrar
         this.limpar();
-        // Atualizar a lista de marcas
         this.listarPessoaJuridica(this.paginaAtual);
         console.log(this.paginaAtual)
       },
@@ -119,6 +113,7 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
       }
     });
   }
+
 
     catProdObjeto(): PessoaJuridica {
         return{
@@ -133,22 +128,57 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
           email: this.pessoaJuridicaForm.get('email')?.value!,
           telefone: this.pessoaJuridicaForm.get('telefone')?.value!,
           tipoPessoa: this.pessoaJuridicaForm.get('tipoPessoa')?.value!,
-          endereco: this.pessoaJuridicaForm.get('endereco')?.value!,
+          enderecos: this.enderecos,
           empresa : this.pessoaJuridicaForm.get('empresa')?.value!,
+        }
+      }
+
+      enderecoObjeto(): Endereco {
+        return{
+          id: this.enderecoForm.get('id')?.value!,
+          ruaLogra: this.enderecoForm.get('ruaLogra')?.value!,
+          cep: this.enderecoForm.get('cep')?.value!,
+          numero: this.enderecoForm.get('numero')?.value!,
+          complemento : this.enderecoForm.get('complemento')?.value!,
+          bairro: this.enderecoForm.get('bairro')?.value!,
+          uf: this.enderecoForm.get('uf')?.value!,
+          cidade : this.enderecoForm.get('cidade')?.value!,
+          estado: this.enderecoForm.get('estado')?.value!,
+          tipoEndereco: this.enderecoForm.get('tipoEndereco')?.value!,
         }
       }
 
       limpar() {
         this.pessoaJuridicaForm.reset();
       }
+      limparEnd() {
+        this.enderecoForm.reset();
+      }
 
-   editarAcesso(pessoaJuridica: PessoaJuridica): void {
-    console.log(pessoaJuridica)
-    console.log(this.pessoaJuridicaForm)
+      addEndereco(){
+        const endereco = this.enderecoObjeto();
+        const enderecoExistente = this.enderecos.findIndex(e => e.cep === endereco.cep);
+
+        if (enderecoExistente >= 0) {
+          this.enderecos.splice(enderecoExistente, 1);
+        }
+
+        this.enderecos.push(endereco);
+      }
+
+      removerEndereco(endereco: Endereco){
+        const enderecoExistente = this.enderecos.findIndex(e => e.cep === endereco.cep);
+        this.enderecos.splice(enderecoExistente, 1);
+
+      }
+
+      editarPessoaJuridica(pessoaJuridica: PessoaJuridica): void {
 
       this.service.buscarPorId(pessoaJuridica.id).subscribe({
         next:(res) => {
+
           this.pessoaJuridica = res;
+          this.enderecos = this.pessoaJuridica.enderecos !== undefined ? this.pessoaJuridica.enderecos : new Array<Endereco>();
           this.pessoaJuridicaForm.setValue({
             id: this.pessoaJuridica.id ?? null,
             cnpj: this.pessoaJuridica.cnpj ?? null,
@@ -161,7 +191,7 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
             email: this.pessoaJuridica.email ?? null,
             telefone: this.pessoaJuridica.telefone ?? null,
             tipoPessoa: this.pessoaJuridica.tipoPessoa ?? null,
-            endereco: this.pessoaJuridica.endereco ?? null,
+            endereco: this.enderecos ?? null,
             empresa: this.pessoaJuridica.empresa ?? null
 
           });
@@ -173,7 +203,7 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
 
     }
 
-    excluirAcesso(pessoaJuridica: PessoaJuridica): void {
+    excluirPessoaJuridica(pessoaJuridica: PessoaJuridica): void {
       var confirma  = confirm('deseja mesmo excluir?');
 
       if (confirma) {
@@ -224,6 +254,22 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
         this.paginaAtual =  this.paginaAtual.valueOf() + 1;
       }
       this.listarPessoaJuridica(this.paginaAtual)
+    }
+
+    verEndereco(endereco: Endereco): void {
+      this.enderecoForm = this.form.group({
+        id: new FormControl<number | null>(endereco.id ?? null),
+        ruaLogra: new FormControl<string | null>(endereco.ruaLogra ?? null, Validators.required),
+        cep: new FormControl<string | null>(endereco.cep ?? null, Validators.required),
+        numero: new FormControl<string | null>(endereco.numero ?? null, Validators.required),
+        complemento: new FormControl<string | null>(endereco.complemento ?? null, Validators.required),
+        bairro: new FormControl<string | null>(endereco.bairro ?? null, Validators.required),
+        uf: new FormControl<string | null>(endereco.uf ?? "", Validators.required),
+        cidade: new FormControl<string | null>(endereco.cidade ?? null, Validators.required),
+        estado: new FormControl<string | null>(endereco.estado ?? null, Validators.required),
+        tipoEndereco: new FormControl<string | null>(endereco.tipoEndereco ?? ""),
+        empresa: [this.loginService.objetoEmpresa(), Validators.required]
+      });
     }
 
 }

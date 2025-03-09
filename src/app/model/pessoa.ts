@@ -9,7 +9,7 @@ export class Pessoa {
   telefone?: string;
   tipoPessoa?: string;
   empresa?: PessoaJuridica
-  endereco?: Endereco[];
+  enderecos?: Endereco[];
 
   constructor(){
   }
