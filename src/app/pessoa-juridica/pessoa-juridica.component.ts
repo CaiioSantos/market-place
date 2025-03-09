@@ -162,7 +162,7 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
         if (endereco.id && endereco.id != undefined) {
           for (let index = 0; index < this.enderecos.length; index++) {
             var element = this.enderecos[index];
-              if (element.cep === endereco.cep && element.id === endereco.id) {
+              if (element.cep === endereco.cep || element.id === endereco.id) {
                 return;
               }
           }

@@ -216,8 +216,8 @@ export class PessoaFisicaComponent implements OnInit {
         if (endereco.id && endereco.id != undefined) {
           for (let index = 0; index < this.enderecos.length; index++) {
             var element = this.enderecos[index];
-              if (element.cep === endereco.cep && element.id) {
-                return;
+            if (element.cep === endereco.cep || element.id === endereco.id) {
+              return;
               }
           }
         }
