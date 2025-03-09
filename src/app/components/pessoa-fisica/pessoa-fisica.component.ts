@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { PessoaFisica } from '../model/pessoa-fisica';
+import { PessoaFisica } from '../../model/pessoa-fisica';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { PessoaFisicaService } from '../service/pessoa-fisica.service';
+import { PessoaFisicaService } from '../../service/pessoa-fisica.service';
 import { Router } from '@angular/router';
-import { LoginService } from '../service/login.service';
-import { Endereco } from '../model/endereco';
-import { EnderecoService } from '../service/endereco.service';
+import { LoginService } from '../../service/login.service';
+import { Endereco } from '../../model/endereco';
+import { EnderecoService } from '../../service/endereco.service';
 
 @Component({
   selector: 'app-pessoa-fisica',

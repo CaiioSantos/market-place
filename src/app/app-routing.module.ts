@@ -8,7 +8,8 @@ import { CategoriaProdutoComponent } from './categoria-produto/categoria-produto
 import { MarcaProdutoComponent } from './marca-produto/marca-produto.component';
 import { AcessoComponent } from './acesso/acesso.component';
 import { PessoaJuridicaComponent } from './pessoa-juridica/pessoa-juridica.component';
-import { PessoaFisicaComponent } from './pessoa-fisica/pessoa-fisica.component';
+import { PessoaFisicaComponent } from './components/pessoa-fisica/pessoa-fisica.component';
+import { UsuarioComponent } from './components/usuario/usuario.component';
 
 const routes: Routes = [
 
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: 'marca-produto', component: MarcaProdutoComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
   {path: 'acesso', component: AcessoComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
   {path: 'pessoa-juridica', component: PessoaJuridicaComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
-  {path: 'pessoa-fisica', component: PessoaFisicaComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}}
+  {path: 'pessoa-fisica', component: PessoaFisicaComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
+  {path: 'usuario', component: UsuarioComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}}
 ];
 
 @NgModule({

@@ -1,0 +1,19 @@
+<div class="container-fluid">
+<table class="table" >
+  <thead style="margin-top: 15px;">
+    <tr >
+      <th scope="col">ID</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Excluir</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let usuario of lista">
+      <td>{{usuario.id}}</td>
+      <td>{{usuario.login}}</td>
+    </tr>
+  </tbody>
+    </table>
+  </div>

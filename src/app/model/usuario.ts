@@ -1,5 +1,6 @@
 export interface Usuario {
 
-  login: String;
-  senha: String;
+    id?: Number;
+    login: String;
+    senha: String;
 }

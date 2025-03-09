@@ -14,7 +14,8 @@ import { MarcaProdutoComponent } from './marca-produto/marca-produto.component';
 import { AcessoComponent } from './acesso/acesso.component';
 import { PessoaJuridicaComponent } from './pessoa-juridica/pessoa-juridica.component';
 import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask, provideNgxMask } from "ngx-mask";
-import { PessoaFisicaComponent } from './pessoa-fisica/pessoa-fisica.component';
+import { PessoaFisicaComponent } from './components/pessoa-fisica/pessoa-fisica.component';
+import { UsuarioComponent } from './components/usuario/usuario.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { PessoaFisicaComponent } from './pessoa-fisica/pessoa-fisica.component';
     MarcaProdutoComponent,
     AcessoComponent,
     PessoaJuridicaComponent,
-    PessoaFisicaComponent
+    PessoaFisicaComponent,
+    UsuarioComponent
   ],
   imports: [
     BrowserModule,
