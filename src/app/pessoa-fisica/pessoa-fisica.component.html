@@ -60,11 +60,115 @@
       </div>
     </div>
 
+    <form class="row g-3" [formGroup]="enderecoForm" >
+      <div class="col-2">
+        <label for="id" class="form-label">ID</label>
+        <input type="text" class="form-control" id="id" name="id" readonly placeholder="ID" formControlName="id">
+      </div>
+
+      <div class="col-4">
+        <label for="id" class="form-label">Rua</label>
+        <input type="text" class="form-control" id="ruaLogra" name="ruaLogra"  placeholder="Rua" formControlName="ruaLogra">
+        <div *ngIf="enderecoForm.get('ruaLogra')?.errors" style="font-size:8px;color: brown;">
+          Rua
+        </div>
+      </div>
+      <div class="col-3">
+        <label for="id" class="form-label">Cep</label>
+        <input type="text" class="form-control" id="cep" name="cep"  placeholder="Cep" formControlName="cep">
+        <div *ngIf="enderecoForm.get('cep')?.errors" style="font-size:8px;color: brown;">
+          Rua
+        </div>
+      </div>
+      <div class="col-3">
+        <label for="id" class="form-label">Numero</label>
+        <input type="text" class="form-control" id="numero" name="numero"  placeholder="Rua" formControlName="numero">
+        <div *ngIf="enderecoForm.get('numero')?.errors" style="font-size:8px;color: brown;">
+          Numero
+        </div>
+      </div>
+
+      <div class="col-5">
+        <label for="id" class="form-label">Complemento</label>
+        <input type="text" class="form-control" id="complemento" name="complemento"  placeholder="Complemento" formControlName="complemento">
+        <div *ngIf="enderecoForm.get('complemento')?.errors" style="font-size:8px;color: brown;">
+          Complemento
+        </div>
+      </div>
+
+      <div class="col-5">
+        <label for="id" class="form-label">Bairro</label>
+        <input type="text" class="form-control" id="bairro" name="bairro"  placeholder="Bairro" formControlName="bairro">
+        <div *ngIf="enderecoForm.get('bairro')?.errors" style="font-size:8px;color: brown;">
+          Bairro
+        </div>
+      </div>
+      <div class="col-2">
+        <label for="id" class="form-label">UF</label>
+        <input type="text" class="form-control" id="uf" name="uf"  placeholder="UF" formControlName="uf">
+        <div *ngIf="enderecoForm.get('uf')?.errors" style="font-size:8px;color: brown;">
+          Bairro
+        </div>
+      </div>
+      <div class="col-5">
+        <label for="id" class="form-label">Cidade</label>
+        <input type="text" class="form-control" id="cidade" name="cidade"  placeholder="Cidade" formControlName="cidade">
+        <div *ngIf="enderecoForm.get('cidade')?.errors" style="font-size:8px;color: brown;">
+          Cidade
+        </div>
+      </div>
+      <div class="col-3">
+        <label for="id" class="form-label">Estado</label>
+        <input type="text" class="form-control" id="estado" name="estado"  placeholder="Estado" formControlName="estado">
+        <div *ngIf="enderecoForm.get('estado')?.errors" style="font-size:8px;color: brown;">
+          Estado
+        </div>
+      </div>
+
+      <div class="col-4">
+        <label for="descricao" class="form-label">Tipo Endereco</label>
+        <select class="form-select" formControlName = "tipoEndereco" required>
+          <option value="" selected >Selecione</option>
+          <option value="COBRANCA">Cobrança</option>
+          <option value="ENTREGA">Entrega</option>
+        </select>
+
+        <div *ngIf="enderecoForm.get('tipoPessoa')?.errors" style="font-size:8px;color: brown;">
+          Tipo Pessoa obrigatorio!
+        </div>
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary" [disabled]="!enderecoForm.valid" (click)="limparEnd()">Limpar</button>
+        <button type="submit" class="btn btn-primary" style="margin-left: 3%;" [disabled]="!enderecoForm.valid" (click)="addEndereco()">Adicionar Endereço</button>
+      </div>
+    </form>
+
+    <table class="table" >
+      <thead style="margin-top: 15px;">
+        <tr >
+          <th scope="col">ID</th>
+          <th scope="col">Endereco</th>
+          <th scope="col">Ver</th>
+          <th scope="col">Excluir</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let endereco of enderecos">
+          <td>{{endereco.id}}</td>
+          <td>{{endereco.ruaLogra}}</td>
+          <td><button class="btn btn-primary" (click)="verEndereco(endereco)">Ver</button>
+          </td>
+          <td><button class="btn btn-danger" (click)="removerEndereco(endereco)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+        </table>
+
     <div class="col-12">
       <button type="submit" class="btn btn-primary" [disabled]="!pessoafisicaForm.valid" (click)="limpar()">Limpar</button>
       <button type="submit" class="btn btn-primary" style="margin-left: 3%;" [disabled]="!pessoafisicaForm.valid" (click)="cadastrarAcesso()">Cadastrar</button>
-      <button type="submit" class="btn btn-primary" style="margin-left: 3%;"  (click)="testeform()">Cadastrar</button>
-
     </div>
 
   </form>

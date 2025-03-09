@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { PessoaFisicaService } from '../service/pessoa-fisica.service';
 import { Router } from '@angular/router';
 import { LoginService } from '../service/login.service';
+import { Endereco } from '../model/endereco';
+import { EnderecoService } from '../service/endereco.service';
 
 @Component({
   selector: 'app-pessoa-fisica',
@@ -14,6 +16,7 @@ export class PessoaFisicaComponent implements OnInit {
 
 
     lista = new Array<PessoaFisica>();
+    enderecos =  new Array<Endereco>()
       pessoaFisica: PessoaFisica;
       varPesquisa: String = '';
       qtdPagina: number = 0;
@@ -29,12 +32,28 @@ export class PessoaFisicaComponent implements OnInit {
           email: new FormControl<string | null>(null, Validators.email),
           telefone: new FormControl<string | null>(null),
           tipoPessoa: new FormControl<string | null>(""),
+          endereco: [this.enderecos],
+          empresa: [this.loginService.objetoEmpresa(), Validators.required]
+
+        });
+
+        enderecoForm = this.form.group({
+          id: new FormControl<number | null>(null),
+          ruaLogra: new FormControl<string | null>(null),
+          cep: new FormControl<string | null>(null, Validators.required),
+          numero: new FormControl<string | null>(null, Validators.required),
+          complemento: new FormControl<string | null>(null, Validators.required),
+          bairro: new FormControl<string | null>(null, Validators.required),
+          uf: new FormControl<string | null>("", Validators.required),
+          cidade: new FormControl<string | null>(null),
+          estado: new FormControl<string | null>(null, Validators.required),
+          tipoEndereco: new FormControl<string | null>(""),
           empresa: [this.loginService.objetoEmpresa(), Validators.required]
 
         });
 
   constructor(private form: FormBuilder, private service: PessoaFisicaService,
-       private route: Router, private loginService: LoginService){
+       private route: Router, private loginService: LoginService,private enderecoService : EnderecoService){
         this.pessoaFisica = new PessoaFisica();
     }
 
@@ -64,9 +83,7 @@ export class PessoaFisicaComponent implements OnInit {
         }
       })
     }
-    testeform() {
-      console.info(this.pessoafisicaForm)
-      }
+
 
     atualizarPagina(): void {
       this.service.qtdPaginas().subscribe({
@@ -106,6 +123,7 @@ export class PessoaFisicaComponent implements OnInit {
             email: this.pessoafisicaForm.get('email')?.value!,
             telefone: this.pessoafisicaForm.get('telefone')?.value!,
             tipoPessoa: this.pessoafisicaForm.get('tipoPessoa')?.value!,
+            enderecos: this.enderecos,
             empresa : this.pessoafisicaForm.get('empresa')?.value!,
           }
         }
@@ -119,6 +137,7 @@ export class PessoaFisicaComponent implements OnInit {
         this.service.buscarPorId(pessoaFisica.id).subscribe({
           next:(res) => {
             this.pessoaFisica = res;
+            this.enderecos = this.pessoaFisica.enderecos !== undefined ? this.pessoaFisica.enderecos : new Array<Endereco>();
             this.pessoafisicaForm.setValue({
               id: this.pessoaFisica.id ?? null,
               cpf: this.pessoaFisica.cpf ?? null,
@@ -127,6 +146,7 @@ export class PessoaFisicaComponent implements OnInit {
               email: this.pessoaFisica.email ?? null,
               telefone: this.pessoaFisica.telefone ?? null,
               tipoPessoa: this.pessoaFisica.tipoPessoa ?? null,
+              endereco: this.enderecos,
               empresa: this.pessoaFisica.empresa ?? null
             });
             console.log(this.pessoafisicaForm)
@@ -191,4 +211,69 @@ export class PessoaFisicaComponent implements OnInit {
         this.listarPessoaFisica(this.paginaAtual)
       }
 
+      addEndereco(){
+        const endereco = this.enderecoObjeto();
+        if (endereco.id && endereco.id != undefined) {
+          for (let index = 0; index < this.enderecos.length; index++) {
+            var element = this.enderecos[index];
+              if (element.cep === endereco.cep && element.id) {
+                return;
+              }
+          }
+        }
+        const enderecoExistente = this.enderecos.findIndex(end => end.cep === endereco.cep);
+        const enderecoExistenteId = this.enderecos.findIndex(end => end.id === endereco.id);
+
+        if (enderecoExistente >= 0 && enderecoExistenteId >= 0) {
+          this.enderecos.splice(enderecoExistente, 1);
+        }
+
+        this.enderecos.push(endereco);
+        this.limparEnd();
+      }
+
+      removerEndereco(endereco: Endereco){
+        var confirma = confirm('Deseja remover Endereço?')
+        if(confirma){
+          const enderecoExistente = this.enderecos.findIndex(e => e.cep === endereco.cep);
+          this.enderecos.splice(enderecoExistente, 1);
+          this.enderecoService.excluirEndereco(endereco);
+        }
+
+      }
+
+      enderecoObjeto(): Endereco {
+        return{
+          id: this.enderecoForm.get('id')?.value!,
+          ruaLogra: this.enderecoForm.get('ruaLogra')?.value!,
+          cep: this.enderecoForm.get('cep')?.value!,
+          numero: this.enderecoForm.get('numero')?.value!,
+          complemento : this.enderecoForm.get('complemento')?.value!,
+          bairro: this.enderecoForm.get('bairro')?.value!,
+          uf: this.enderecoForm.get('uf')?.value!,
+          cidade : this.enderecoForm.get('cidade')?.value!,
+          estado: this.enderecoForm.get('estado')?.value!,
+          tipoEndereco: this.enderecoForm.get('tipoEndereco')?.value!,
+        }
+      }
+
+      verEndereco(endereco: Endereco): void {
+        this.enderecoForm = this.form.group({
+          id: new FormControl<number | null>(endereco.id ?? null),
+          ruaLogra: new FormControl<string | null>(endereco.ruaLogra ?? null, Validators.required),
+          cep: new FormControl<string | null>(endereco.cep ?? null, Validators.required),
+          numero: new FormControl<string | null>(endereco.numero ?? null, Validators.required),
+          complemento: new FormControl<string | null>(endereco.complemento ?? null, Validators.required),
+          bairro: new FormControl<string | null>(endereco.bairro ?? null, Validators.required),
+          uf: new FormControl<string | null>(endereco.uf ?? "", Validators.required),
+          cidade: new FormControl<string | null>(endereco.cidade ?? null, Validators.required),
+          estado: new FormControl<string | null>(endereco.estado ?? null, Validators.required),
+          tipoEndereco: new FormControl<string | null>(endereco.tipoEndereco ?? ""),
+          empresa: [this.loginService.objetoEmpresa(), Validators.required]
+        });
+      }
+
+    limparEnd() {
+      this.enderecoForm.reset();
+    }
 }

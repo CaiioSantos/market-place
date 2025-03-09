@@ -182,6 +182,7 @@
         <tr >
           <th scope="col">ID</th>
           <th scope="col">Endereco</th>
+          <th scope="col">CEP</th>
           <th scope="col">Ver</th>
           <th scope="col">Excluir</th>
 
@@ -191,6 +192,7 @@
         <tr *ngFor="let endereco of enderecos">
           <td>{{endereco.id}}</td>
           <td>{{endereco.ruaLogra}}</td>
+          <td>{{endereco.cep}}</td>
           <td><button class="btn btn-primary" (click)="verEndereco(endereco)">Ver</button>
           </td>
           <td><button class="btn btn-danger" (click)="removerEndereco(endereco)">Excluir</button>

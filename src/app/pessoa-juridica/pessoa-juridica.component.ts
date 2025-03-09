@@ -5,6 +5,7 @@ import { PessoaJuridicaService } from '../service/pessoa-juridica.service';
 import { LoginService } from '../service/login.service';
 import { Router } from '@angular/router';
 import { Endereco } from '../model/endereco';
+import { EnderecoService } from '../service/endereco.service';
 
 @Component({
   selector: 'app-pessoa-juridica',
@@ -55,7 +56,7 @@ export class PessoaJuridicaComponent implements OnInit {
       });
 
 constructor(private form: FormBuilder, private service: PessoaJuridicaService,
-     private route: Router, private loginService: LoginService){
+     private route: Router, private loginService: LoginService,private enderecoService : EnderecoService){
       this.pessoaJuridica = new PessoaJuridica();
   }
 
@@ -157,9 +158,20 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
 
       addEndereco(){
         const endereco = this.enderecoObjeto();
-        const enderecoExistente = this.enderecos.findIndex(e => e.cep === endereco.cep);
 
-        if (enderecoExistente >= 0) {
+        if (endereco.id && endereco.id != undefined) {
+          for (let index = 0; index < this.enderecos.length; index++) {
+            var element = this.enderecos[index];
+              if (element.cep === endereco.cep && element.id === endereco.id) {
+                return;
+              }
+          }
+
+        }
+        const enderecoExistente = this.enderecos.findIndex(end => end.cep === endereco.cep);
+        const enderecoExistenteId = this.enderecos.findIndex(end => end.id === endereco.id);
+
+        if (enderecoExistente >= 0 && enderecoExistenteId >= 0) {
           this.enderecos.splice(enderecoExistente, 1);
         }
 
@@ -167,10 +179,14 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
       }
 
       removerEndereco(endereco: Endereco){
-        const enderecoExistente = this.enderecos.findIndex(e => e.cep === endereco.cep);
-        this.enderecos.splice(enderecoExistente, 1);
+        var confirma = confirm('Deseja remover Endereço?')
+        if(confirma){
+          const enderecoExistente = this.enderecos.findIndex(e => e.cep === endereco.cep);
+          this.enderecos.splice(enderecoExistente, 1);
+          this.enderecoService.excluirEndereco(endereco);
 
       }
+    }
 
       editarPessoaJuridica(pessoaJuridica: PessoaJuridica): void {
 
