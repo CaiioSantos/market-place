@@ -2,9 +2,9 @@ import { Pessoa } from "./pessoa";
 
 export class UserPessoa {
 
-  id?: number;
-  login?: string;
-  senha?: string;
+  id?: Number;
+  login?: String;
+  senha?: String;
   pessoa?: Pessoa;
 
 }

@@ -56,7 +56,7 @@ export class UsuarioComponent implements OnInit {
         });
       }
 
-  userObjeto(): Usuario {
+  userObjeto(): UserPessoa {
       return{
         id: this.usuarioForm.get('id')?.value!,
         login: this.usuarioForm.get('login')?.value!,
