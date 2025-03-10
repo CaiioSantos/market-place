@@ -1,4 +1,37 @@
+<p style="text-align: center; font-weight: bold;font-size: 15px;">Cadastro de Pessoa Fisica</p>
+
 <div class="container-fluid">
+  <form class="row g-3" [formGroup]="usuarioForm" >
+    <div class="col-2">
+      <label for="id" class="form-label">ID</label>
+      <input type="text" class="form-control" id="id" name="id" readonly placeholder="ID" formControlName="id">
+    </div>
+    <div class="col-10">
+      <label for="descricao" class="form-label">Pessoa</label>
+      <input type="text" class="form-control" id="pessoa" name="pessoa" readonly placeholder="Pessoa" formControlName="pessoa">
+      <div *ngIf="usuarioForm.get('pessoa')?.errors" style="font-size:8px;color: brown;">
+        Login obrigatorio!
+      </div>
+    </div>
+    <div class="col-5">
+      <label for="descricao" class="form-label">Login</label>
+      <input type="text" class="form-control" id="login" name="login" placeholder="Login" formControlName="login">
+      <div *ngIf="usuarioForm.get('login')?.errors" style="font-size:8px;color: brown;">
+        Login obrigatorio!
+      </div>
+    </div>
+    <div class="col-5">
+      <label for="descricao" class="form-label">Senha</label>
+      <input type="text" class="form-control" id="senha" name="senha" placeholder="Senha" formControlName="senha">
+      <div *ngIf="usuarioForm.get('senha')?.errors" style="font-size:8px;color: brown;">
+        Senha obrigatorio!
+      </div>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" [disabled]="!usuarioForm.valid" (click)="limpar()">Limpar</button>
+      <button type="submit" class="btn btn-primary" style="margin-left: 3%;" [disabled]="!usuarioForm.valid" (click)="cadastrarUsuario()">Cadastrar</button>
+    </div>
+  </form>
 <table class="table" >
   <thead style="margin-top: 15px;">
     <tr >
@@ -13,6 +46,9 @@
     <tr *ngFor="let usuario of lista">
       <td>{{usuario.id}}</td>
       <td>{{usuario.login}}</td>
+      <td><button class="btn btn-primary" (click)="editarUsuario(usuario)">Editar</button>
+      </td>
+      <!-- <td><button class="btn btn-danger" (click)="excluirUsuario(usuario)">Excluir</button> -->
     </tr>
   </tbody>
     </table>
