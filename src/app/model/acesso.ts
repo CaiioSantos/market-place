@@ -7,4 +7,5 @@ export class Acesso {
   id?: number
   descricao?: string;
   empresa?: PessoaJuridica;
+  possuiAcesso?: Boolean;
 }

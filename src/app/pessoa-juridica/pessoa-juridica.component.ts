@@ -178,7 +178,7 @@ constructor(private form: FormBuilder, private service: PessoaJuridicaService,
         this.enderecos.push(endereco);
       }
 
-      removerEndereco(endereco: Endereco){
+      removerPessoaJuridica(endereco: Endereco){
         var confirma = confirm('Deseja remover Endereço?')
         if(confirma){
           const enderecoExistente = this.enderecos.findIndex(e => e.cep === endereco.cep);

@@ -8,7 +8,7 @@
     </div>
     <div class="col-10">
       <label for="descricao" class="form-label">Pessoa</label>
-      <input type="text" class="form-control" id="pessoa" name="pessoa" readonly placeholder="Pessoa" formControlName="pessoa">
+      <input type="text" class="form-control" id="pessoa" name="pessoa" placeholder="Pessoa" formControlName="pessoa">
       <div *ngIf="usuarioForm.get('pessoa')?.errors" style="font-size:8px;color: brown;">
         Login obrigatorio!
       </div>
@@ -27,6 +27,27 @@
         Senha obrigatorio!
       </div>
     </div>
+
+    <div>
+      <table class="table" >
+  <thead style="margin-top: 15px;">
+    <tr >
+      <th scope="col">Liberado</th>
+      <th scope="col">Acesso</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let acesso of acessos">
+      <td> <input type="checkbox" [checked]="acesso.possuiAcesso" (change)="adicionaRemoveAcesso(acesso)"></td>
+      <td>{{acesso.descricao }}</td>
+
+    </tr>
+  </tbody>
+    </table>
+    </div>
+
+
     <div class="col-12">
       <button type="submit" class="btn btn-primary" [disabled]="!usuarioForm.valid" (click)="limpar()">Limpar</button>
       <button type="submit" class="btn btn-primary" style="margin-left: 3%;" [disabled]="!usuarioForm.valid" (click)="cadastrarUsuario()">Cadastrar</button>
@@ -48,7 +69,7 @@
       <td>{{usuario.login}}</td>
       <td><button class="btn btn-primary" (click)="editarUsuario(usuario)">Editar</button>
       </td>
-      <!-- <td><button class="btn btn-danger" (click)="excluirUsuario(usuario)">Excluir</button> -->
+       <td><button class="btn btn-danger" (click)="excluirUsuario(usuario)">Excluir</button>
     </tr>
   </tbody>
     </table>

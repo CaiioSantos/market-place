@@ -50,6 +50,11 @@ listarAcesso(page: Number){
   return this.http.get<Acesso[]>(this.url + 'listaPorPageAcesso/'+ this.loginService.objetoEmpresa().id + '/' + page)
 }
 
+listarAcessoTodos(){
+  console.info(this.loginService.codEmpresa())
+  return this.http.get<Acesso[]>(this.url + 'listaAcessoPorEmpresa/'+ this.loginService.objetoEmpresa().id)
+}
+
 buscarPorId(id: any){
 
   return this.http.get<Acesso>(this.url + 'obterAcesso/' +id)
