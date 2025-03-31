@@ -1,0 +1,46 @@
+<p style="text-align: center; font-weight: bold;font-size: 15px;">Cadastro de Acesso</p>
+<div class="container-fluid">
+
+  <form class="row g-3" [formGroup]="formaPagamentoForm" >
+    <div class="col-2">
+      <label for="id" class="form-label">ID</label>
+      <input type="text" class="form-control" id="id" name="id" readonly placeholder="ID" formControlName="id">
+    </div>
+    <div class="col-10">
+      <label for="descricao" class="form-label">Nome da Permissao</label>
+      <input type="text" class="form-control" id="descricao" name="descricao" required placeholder="Forma de Pagamento" formControlName="descricao">
+      <div *ngIf="formaPagamentoForm.get('descricao')?.errors" style="font-size:8px;color: brown;">
+        Nome obrigatorio!
+      </div>
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" [disabled]="!formaPagamentoForm.valid" (click)="limpar()">Limpar</button>
+      <button type="submit" class="btn btn-primary" style="margin-left: 3%;" [disabled]="!formaPagamentoForm.valid" (click)="cadastrarFormaPagamento()">Cadastrar</button>
+    </div>
+
+  </form>
+
+  <table class="table" >
+<thead style="margin-top: 15px;">
+  <tr >
+    <th scope="col">ID</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Editar</th>
+    <th scope="col">Excluir</th>
+
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let acesso of lista">
+    <td>{{acesso.id}}</td>
+    <td>{{acesso.descricao}}</td>
+    <td><button class="btn btn-primary" (click)="editarFormaPagamento(acesso)">Editar</button>
+    </td>
+    <td><button class="btn btn-danger" (click)="excluirFormaPagamento(acesso)">Excluir</button>
+    </td>
+  </tr>
+</tbody>
+  </table>
+
+</div>

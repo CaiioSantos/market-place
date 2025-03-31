@@ -16,10 +16,11 @@ import { PessoaJuridicaComponent } from './pessoa-juridica/pessoa-juridica.compo
 import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask, provideNgxMask } from "ngx-mask";
 import { PessoaFisicaComponent } from './components/pessoa-fisica/pessoa-fisica.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
+import { FormaPagamentoComponent } from './forma-pagamento/forma-pagamento.component';
 
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     LoginComponent,
     HomeComponent,
@@ -29,8 +30,9 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
     AcessoComponent,
     PessoaJuridicaComponent,
     PessoaFisicaComponent,
-    UsuarioComponent
-  ],
+    UsuarioComponent,
+      FormaPagamentoComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

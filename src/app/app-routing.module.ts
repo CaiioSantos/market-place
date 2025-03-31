@@ -10,6 +10,7 @@ import { AcessoComponent } from './acesso/acesso.component';
 import { PessoaJuridicaComponent } from './pessoa-juridica/pessoa-juridica.component';
 import { PessoaFisicaComponent } from './components/pessoa-fisica/pessoa-fisica.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
+import { FormaPagamentoComponent } from './forma-pagamento/forma-pagamento.component';
 
 const routes: Routes = [
 
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'acesso', component: AcessoComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
   {path: 'pessoa-juridica', component: PessoaJuridicaComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
   {path: 'pessoa-fisica', component: PessoaFisicaComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
-  {path: 'usuario', component: UsuarioComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}}
+  {path: 'usuario', component: UsuarioComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}},
+  {path: 'forma-pagamento', component: FormaPagamentoComponent, canActivate:[guardiaoGuard],data:{role:['ROLE_ADMIN','ROLE_USER','ROLE_FUNCIONARIO']}}
 ];
 
 @NgModule({
