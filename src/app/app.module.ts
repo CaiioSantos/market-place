@@ -9,7 +9,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InterceptorProjetoInterceptor } from './interceptor/interceptor-projeto.interceptor';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { CategoriaProdutoComponent } from './categoria-produto/categoria-produto.component';
+import { CategoriaProdutoComponent } from './components/categoria-produto/categoria-produto.component';
 import { MarcaProdutoComponent } from './marca-produto/marca-produto.component';
 import { AcessoComponent } from './acesso/acesso.component';
 import { PessoaJuridicaComponent } from './pessoa-juridica/pessoa-juridica.component';
@@ -17,10 +17,11 @@ import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask, provideNgxMas
 import { PessoaFisicaComponent } from './components/pessoa-fisica/pessoa-fisica.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { FormaPagamentoComponent } from './forma-pagamento/forma-pagamento.component';
+import { CupomDescontoComponent } from './components/cupom-desconto/cupom-desconto.component';
 
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
@@ -31,7 +32,8 @@ import { FormaPagamentoComponent } from './forma-pagamento/forma-pagamento.compo
     PessoaJuridicaComponent,
     PessoaFisicaComponent,
     UsuarioComponent,
-      FormaPagamentoComponent
+      FormaPagamentoComponent,
+      CupomDescontoComponent
    ],
   imports: [
     BrowserModule,

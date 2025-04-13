@@ -1,0 +1,68 @@
+<p style="text-align: center; font-weight: bold;font-size: 15px;">Cupom Desconto</p>
+<div class="container-fluid">
+
+  <form class="row g-3" [formGroup]="cupomDescontoForm" >
+    <div class="col-2">
+      <label for="id" class="form-label">ID</label>
+      <input type="text" class="form-control" id="id" name="id" readonly placeholder="ID" formControlName="id">
+    </div>
+    <div class="col-5">
+      <label for="codDesc" class="form-label">Nome do Cupom</label>
+      <input type="text" class="form-control" id="codDesc" name="codDesc" required placeholder="Cupom de Desconto" formControlName="codDesc">
+      <div *ngIf="cupomDescontoForm.get('codDesc')?.errors" style="font-size:8px;color: brown;">
+        Nome obrigatorio!
+      </div>
+    </div>
+    <div class="col-5">
+      <label for="dataValidateCupom" class="form-label">Data de validade</label>
+      <input type="date" class="form-control" id="dataValidateCupom" name="dataValidateCupom" required placeholder=""
+       formControlName="dataValidateCupom">
+      <div *ngIf="cupomDescontoForm.get('dataValidateCupom')?.errors" style="font-size:8px;color: brown;">
+        Nome obrigatorio!
+      </div>
+    </div>
+    <div class="col-6">
+      <label for="valorRealDesc" class="form-label">Valor real do desconto</label>
+      <input type="text" class="form-control" id="valorRealDesc" name="valorRealDesc" required placeholder="Cupom de Desconto" formControlName="valorRealDesc">
+      <div *ngIf="cupomDescontoForm.get('valorRealDesc')?.errors" style="font-size:8px;color: brown;">
+        Nome obrigatorio!
+      </div>
+    </div>
+    <div class="col-6">
+      <label for="valorPorcentDesc" class="form-label">valor em porcentagem</label>
+      <input type="text" class="form-control" id="valorPorcentDesc" name="valorPorcentDesc" required placeholder="Cupom de Desconto" formControlName="valorPorcentDesc">
+      <div *ngIf="cupomDescontoForm.get('valorPorcentDesc')?.errors" style="font-size:8px;color: brown;">
+        Nome obrigatorio!
+      </div>
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" [disabled]="!cupomDescontoForm.valid" (click)="limpar()">Limpar</button>
+      <button type="submit" class="btn btn-primary" style="margin-left: 3%;" [disabled]="!cupomDescontoForm.valid" (click)="cadastrarCupomDesconto()">Cadastrar</button>
+    </div>
+
+  </form>
+
+  <table class="table" >
+<thead style="margin-top: 15px;">
+  <tr >
+    <th scope="col">ID</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Editar</th>
+    <th scope="col">Excluir</th>
+
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let cupomDesconto of lista">
+    <td>{{cupomDesconto.id}}</td>
+    <td>{{cupomDesconto.codDesc}}</td>
+    <td><button class="btn btn-primary" (click)="editarCupomDesconto(cupomDesconto)">Editar</button>
+    </td>
+    <td><button class="btn btn-danger" (click)="excluirCupomDesconto(cupomDesconto)">Excluir</button>
+    </td>
+  </tr>
+</tbody>
+  </table>
+
+</div>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriaProdutoService } from '../service/categoria-produto.service';
+import { CategoriaProdutoService } from '../../service/categoria-produto.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { CategoriaProduto } from '../model/categoria-produto';
-import { PessoaJuridica } from '../model/pessoa-juridica';
-import { LoginService } from '../service/login.service';
+import { CategoriaProduto } from '../../model/categoria-produto';
+import { PessoaJuridica } from '../../model/pessoa-juridica';
+import { LoginService } from '../../service/login.service';
 
 @Component({
   selector: 'app-categoria-produto',
